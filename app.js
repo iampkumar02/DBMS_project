@@ -4,6 +4,8 @@ const app = express();
 app.use(express.json());
 const client = require("./config/db");
 
+app.set('view engine', 'ejs');
+
 client.connect((err) => {
     if (err) {
         console.log(err);
@@ -16,7 +18,8 @@ app.get('/', (req, res) => {
     client.query(q, (err, data) => {
         if (err) throw err;
         var count = (data.rows[0].count);
-        res.send('WE HAVE ' + count + ' users');
+        // res.send('WE HAVE ' + count + ' users');
+        res.render('home');
     })
 })
 

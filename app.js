@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 const client = require("./config/db");
+app.use(express.static(__dirname + '\\styles'));
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -28,11 +29,11 @@ app.post('/register', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-    var q = "SELECT COUNT(*) FROM users;";
+    var q = "SELECT COUNT(*) as count FROM users;";
     client.query(q, (err, data) => {
         if (err) throw err;
-        var count = (data.rows[0].count);
-        // res.send('WE HAVE ' + count + ' users');
+        var count = data[0].count;
+        console.log(data[0].count);
         res.render('home', { data: count });
     })
 })

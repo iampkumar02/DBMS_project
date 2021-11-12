@@ -29,13 +29,14 @@ app.post('/register', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-    var q = "SELECT COUNT(*) as count FROM users;";
+    var q = "SELECT * FROM users;";
     client.query(q, (err, data) => {
         if (err) throw err;
-        var count = data[0].count;
-        console.log(data[0].count);
+        var count = data[0].email;
+        console.log(data[0].email);
         res.render('home', { data: count });
     })
+    // res.render('index');
 })
 
 
